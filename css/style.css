@@ -597,7 +597,7 @@ body {
     margin-top: 4rem;
     padding: 3rem 0;
     background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--accent-green) 100%);
-    border-top: 2px solid var(--highlight-green);
+    border-top: 1px solid var(--border-color);
 }
 
 .main-comments-section .container {
