@@ -28,11 +28,11 @@ function loadMainGiscus() {
     script.setAttribute('data-repo-id', 'R_kgDOQLHmDQ');
     script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'DIC_kwDOQLHmDc4CxMdu');
-    
+
     // 메인 화면은 특정 페이지 매핑이 아닌 전체 댓글로 설정
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-term', '메인 페이지 - 블로그 소통공간');
-    
+
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '1');
