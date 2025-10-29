@@ -52,31 +52,47 @@
     --border-color: #2d5a42;
 
     /* 그림자 */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.25);
 
     /* 전환 효과 */
     --transition: all 0.3s ease;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 라이트 모드 */
+/* 라이트 모드 - 공여사들 스타일 */
 [data-theme="light"] {
-    --primary-bg: #f4f9f6;
+    /* 배경 - 연한 베이지 */
+    --primary-bg: #f8f5f0;
     --secondary-bg: #ffffff;
-    --accent-green: #2d5a42;
-    --highlight-green: #3d7a55;
 
-    --text-primary: #1a2e23;
-    --text-secondary: #2d5a42;
-    --text-muted: #5a7a68;
+    /* 색상 */
+    --accent-green: #6ba589;
+    /* 카테고리 - 진한 녹색 */
+    --highlight-green: #f2e08a;
+    /* 활성화 겨자색 */
+    --tag-green-light: #b8d9c8;
+    /* 사이드바 태그 - 연한 녹색 */
+    --post-tag-bg: #f0f0f0;
+    /* 게시글 카드 태그 - 연한 배경 */
 
-    --link-color: #2d5a42;
-    --link-hover: #1a3629;
+    /* 텍스트 */
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #6a6a6a;
 
-    --border-color: #d0e4da;
+    /* 링크 */
+    --link-color: #5b9d7e;
+    --link-hover: #4a8a6a;
 
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+    /* 구분선 - 검정 테두리 */
+    --border-color: #1a1a1a;
+
+    /* 그림자 */
+    --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 /* 기본 리셋 */
@@ -130,24 +146,27 @@ body {
 }
 
 .theme-toggle {
-    background: none;
+    background: var(--primary-bg);
     border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    padding: 0.625rem 1.125rem;
     font-size: 1.25rem;
     cursor: pointer;
     transition: var(--transition);
+    color: var(--text-primary);
 }
 
 .theme-toggle:hover {
-    background-color: var(--secondary-bg);
-    transform: scale(1.1);
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* 헤더 레이아웃 */
 .header {
     background-color: var(--secondary-bg);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1.5px solid var(--border-color);
     padding: 1.5rem 0;
     margin-bottom: 3rem;
 }
@@ -194,27 +213,50 @@ body {
 .search-container {
     flex: 1;
     max-width: 400px;
+    display: flex;
+    gap: 0.5rem;
 }
 
 #search-input {
-    width: 100%;
+    flex: 1;
     padding: 0.75rem 1rem;
 }
 
 .search-input {
     background-color: var(--secondary-bg);
     border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     color: var(--text-primary);
     font-family: 'NanumBarunGothic', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: var(--transition);
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--accent-green);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 0 0 3px rgba(61, 122, 85, 0.15);
+    background-color: var(--primary-bg);
+}
+
+.search-button {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-button:hover {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+    transform: translateY(-1px);
 }
 
 /* 사이드바 */
@@ -227,8 +269,8 @@ body {
 .sidebar-section {
     background-color: var(--secondary-bg);
     border: 1px solid var(--border-color);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
+    border-radius: 1rem;
+    padding: 1.75rem;
     margin-bottom: 1.5rem;
 }
 
@@ -259,31 +301,56 @@ body {
     gap: 0.5rem;
 }
 
-.tag,
-.category {
+/* 사이드바 - 카테고리 버튼 */
+.categories-list .category {
     display: inline-block;
-    padding: 0.35rem 0.85rem;
-    background-color: var(--primary-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 1rem;
-    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-green);
+    border: 1px solid #1a1a1a;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
     transition: var(--transition);
     cursor: pointer;
-    color: var(--text-secondary);
+    color: #ffffff;
+    font-family: 'NanumBarunGothic', sans-serif;
 }
 
-.tag:hover,
-.category:hover {
-    background-color: var(--accent-green);
-    border-color: var(--accent-green);
-    color: var(--text-primary);
+.categories-list .category:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
-.tag.active,
-.category.active {
+.categories-list .category.active {
     background-color: var(--highlight-green);
-    border-color: var(--highlight-green);
     color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* 사이드바 - 태그 버튼 */
+.tags-list .tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--tag-green-light);
+    border: 1px solid #1a1a1a;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+    color: var(--text-primary);
+    font-family: 'NanumBarunGothic', sans-serif;
+}
+
+.tags-list .tag:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.tags-list .tag.active {
+    background-color: var(--highlight-green);
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* 게시글 목록 */
@@ -296,19 +363,22 @@ body {
 .post-card {
     background-color: var(--secondary-bg);
     border: 1px solid var(--border-color);
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     padding: 2.5rem;
     margin-bottom: 2rem;
     transition: var(--transition);
     text-decoration: none;
     color: inherit;
-    display: block;
+    /* 미리보기 박스 크기 통일 */
+    max-height: 380px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .post-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-4px);
-    border-color: var(--accent-green);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
 }
 
 .post-card h2 {
@@ -333,6 +403,13 @@ body {
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.7;
+    white-space: pre-line;
+    /* 줄바꿈을 그대로 표시 */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    flex: 1;
 }
 
 .post-tags {
@@ -341,9 +418,24 @@ body {
     gap: 0.5rem;
 }
 
+/* 게시글 카드 내부 태그 - 연한 배경 */
 .post-tags .tag {
+    display: inline-block;
     font-size: 0.8rem;
     padding: 0.25rem 0.75rem;
+    background-color: var(--post-tag-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+    color: var(--text-primary);
+    font-family: 'NanumBarunGothic', sans-serif;
+}
+
+.post-tags .tag:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
 }
 
 /* 게시글 상세 페이지 */
@@ -356,7 +448,7 @@ body {
 .post-article {
     background-color: var(--secondary-bg);
     border: 1px solid var(--border-color);
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     padding: 3rem;
     margin-bottom: 3rem;
 }
@@ -474,13 +566,25 @@ body {
 }
 
 .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     color: var(--link-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    transition: var(--transition);
+    background-color: var(--primary-bg);
 }
 
 .back-link:hover {
-    text-decoration: underline;
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+    color: var(--text-primary);
+    transform: translateX(-4px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Giscus 댓글 컨테이너 */
@@ -505,7 +609,7 @@ body {
     padding: 3rem 2rem;
     border-top: 1px solid var(--border-color);
     text-align: center;
-    color: var(--text-muted);
+    color: var(--text-mutedAlpha);
     font-size: 0.9rem;
 }
 

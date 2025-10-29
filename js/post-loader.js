@@ -38,11 +38,48 @@ async function loadPost() {
 
         const markdownText = await markdownResponse.text();
 
+        // 프론트매터 제거 (---로 둘러싸인 메타데이터 제거)
+        let contentWithoutFrontMatter = markdownText;
+        const frontMatterMatch = markdownText.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+        if (frontMatterMatch) {
+            // 프론트매터가 있으면 본문만 사용
+            contentWithoutFrontMatter = frontMatterMatch[2];
+        }
+
         // 마크다운을 HTML로 변환
-        const html = marked.parse(markdownText);
+        const html = marked.parse(contentWithoutFrontMatter);
 
         // 게시글 제목 설정
         document.title = post.title + ' - 블로그';
+
+        // 게시글 헤더 정보 표시
+        const titleDisplay = document.getElementById('post-title-display');
+        if (titleDisplay) {
+            titleDisplay.textContent = post.title;
+        }
+
+        const postDate = document.getElementById('post-date');
+        if (postDate && post.date) {
+            const date = new Date(post.date);
+            postDate.textContent = date.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        const postCategory = document.getElementById('post-category');
+        if (postCategory && post.category) {
+            postCategory.textContent = post.category;
+            postCategory.style.display = 'inline-block';
+        }
+
+        const postTags = document.getElementById('post-tags');
+        if (postTags && post.tags && post.tags.length > 0) {
+            postTags.innerHTML = post.tags.map(tag =>
+                `<span class="tag">${tag}</span>`
+            ).join('');
+        }
 
         // 게시글 컨텐츠 렌더링
         const contentArea = document.getElementById('post-content');

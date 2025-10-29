@@ -96,4 +96,4 @@ description: '게시글에 대한 간단한 설명'
 ## 필수 사항
 
 블로그 글을 작성하고 나서 항상
- `node .github/scripts/generate-posts.js`를 실행하여 posts.json 파일을 생성하세요
+ `node .github/scripts/generate-posts.js`를 실행하여 posts.json 파일을 생성하세요라이

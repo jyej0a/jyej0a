@@ -9,6 +9,24 @@ class SearchManager {
     init() {
         this.bindSearchEvents();
         this.setupKeyboardShortcuts();
+        this.bindSearchButton();
+    }
+
+    // 검색 버튼 이벤트 바인딩
+    bindSearchButton() {
+        const searchButton = document.getElementById('search-button');
+        if (!searchButton) return;
+
+        searchButton.addEventListener('click', () => {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                const searchTerm = searchInput.value.toLowerCase();
+                this.app.currentFilters.search = searchTerm;
+                this.app.applyFilters();
+                this.updateSearchUI(searchTerm);
+                searchInput.focus();
+            }
+        });
     }
 
     // 검색 이벤트 바인딩
